@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('retries')->default(0);
             $table->integer('number_of_pairs');
             $table->enum('state', ['Started', 'Completed'])->default('Started');
+            $table->integer('score')->default(0);
             $table->timestamps();
 
             $table->foreign('memo_test_id')->references('id')->on('memo_tests')->onDelete('cascade');
