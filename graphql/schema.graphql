@@ -39,8 +39,7 @@ type Mutation {
     deleteMemoTest(id: ID!): MemoTest! @delete
 
     startGameSession(memoTestId: ID! @eq, numberOfPairs: Int!): GameSession @field(resolver: "App\\GraphQL\\Mutations\\GameSessionMutator@start")
-    endGameSession(id: ID!): GameSession! 
-        @update(columns: ["state"])
+    endGameSession(gameSessionId: ID!): GameSession @field(resolver: "App\\GraphQL\\Mutations\\GameSessionMutator@end")
     updateGameSession(id: ID!, retries: Int): GameSession! @update
 
     addTry(gameSessionId: ID! @eq): GameSession @field(resolver: "App\\GraphQL\\Mutations\\GameSessionMutator@addTry")

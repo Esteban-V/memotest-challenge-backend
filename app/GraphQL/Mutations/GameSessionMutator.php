@@ -35,8 +35,9 @@ class GameSessionMutator
      */
     public function end($_, array $args)
     {
-        $gameSession = GameSession::findOrFail($args['id']);
-        $gameSession->score = ($gameSession->number_of_pairs / $gameSession->retries) * 100;
+        $gameSession = GameSession::findOrFail($args['gameSessionId']);
+
+        $gameSession->score = ceil(($gameSession->number_of_pairs / $gameSession->retries) * 100);
         $gameSession->state = 'Completed';
         $gameSession->save();
     
