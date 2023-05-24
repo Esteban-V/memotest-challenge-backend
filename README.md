@@ -54,18 +54,18 @@ This command will download the necessary Docker images, set up the containers, a
 http://localhost/graphql-playground
 ```
 
-## Unit tests
-
-To run the unit tests, Sail must be up:
-
-```
-./vendor/bin/sail test
-```
-
 You should see a GraphQL Playground instance.
 
 - To stop the Docker containers and shut down the Laravel application, use the following command:
 
 ```
 ./vendor/bin/sail down
+```
+
+## Unit tests
+
+To run the unit tests, Sail must be up:
+
+```
+./vendor/bin/sail test
 ```
