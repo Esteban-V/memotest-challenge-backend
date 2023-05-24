@@ -48,7 +48,14 @@ composer require laravel/sail --dev
 
 This command will download the necessary Docker images, set up the containers, and start the Laravel application.
 
-7. Access the GrahpQL Playground in your web browser:
+7. Stop and re-run the sail instance (Note: this only needs to be done the first time)
+
+```
+./vendor/bin/sail down
+./vendor/bin/sail up -d
+```
+
+8. Access the GrahpQL Playground in your web browser:
 
 ```
 http://localhost/graphql-playground
