@@ -23,6 +23,7 @@ services:
         networks:
             - sail
         depends_on:
+            - migrations
             - mariadb
     mariadb:
         image: 'mariadb:10'
