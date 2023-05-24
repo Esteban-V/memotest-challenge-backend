@@ -23,8 +23,27 @@ services:
         networks:
             - sail
         depends_on:
-            - migrations
             - mariadb
+    migrations:
+        build:
+            context: ./vendor/laravel/sail/runtimes/8.2
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: sail-8.2/app
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+        volumes:
+            - '.:/var/www/html'
+        command: 'sh -c "php artisan migrate --force && php artisan migrate --force --env=testing && php artisan db:seed --class=MemoTestSeeder"'
+        networks:
+            - sail
+        depends_on:
+            - laravel.test
     mariadb:
         image: 'mariadb:10'
         ports:
@@ -49,26 +68,6 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
-    migrations:
-        build:
-            context: ./vendor/laravel/sail/runtimes/8.2
-            dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        image: sail-8.2/app
-        environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
-        volumes:
-            - '.:/var/www/html'
-        command: 'sh -c "php artisan migrate --force && php artisan db:seed --class=MemoTestSeeder"'
-        networks:
-            - sail
-        depends_on:
-            - mariadb
 networks:
     sail:
         driver: bridge
