@@ -16,34 +16,56 @@ To run the Laravel project for the first time, follow these steps:
 
 1. Clone the repository to your local machine:
 
-```git clone https://github.com/Esteban-V/memotest-challenge-backend.git```
+```
+git clone https://github.com/Esteban-V/memotest-challenge-backend.git
+```
 
 2. Navigate to the project directory:
 
-```cd memotest-challenge-backend```
+```
+cd memotest-challenge-backend
+```
 
 3. Copy the `.env.example` file to create a new `.env` file:
 
-```cp .env.example .env```
+```
+cp .env.example .env
+```
 
 4. Update the `.env` file with your desired configuration, such as the database settings and application key.
 
 5. Install Sail using Composer. Of course, these steps assume that your existing local development environment allows you to install Composer dependencies:
 
-```composer require laravel/sail --dev```
+```
+composer require laravel/sail --dev
+```
 
 6. Build and start the Docker containers using Laravel Sail:
 
-```./vendor/bin/sail up -d```
+```
+./vendor/bin/sail up -d
+```
 
 This command will download the necessary Docker images, set up the containers, and start the Laravel application.
 
 7. Access the GrahpQL Playground in your web browser:
 
-```http://localhost/graphql-playground```
+```
+http://localhost/graphql-playground
+```
+
+## Unit tests
+
+To run the unit tests, Sail must be up:
+
+```
+./vendor/bin/sail test
+```
 
 You should see a GraphQL Playground instance.
 
 - To stop the Docker containers and shut down the Laravel application, use the following command:
 
-```./vendor/bin/sail down```
+```
+./vendor/bin/sail down
+```
