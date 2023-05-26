@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\GameSession;
 use App\Models\MemoTest;
+use App\Models\Session;
 
 class GameSessionMutator
 {
@@ -15,9 +16,11 @@ class GameSessionMutator
      */
     public function start($_, array $args)
     {
+        $session = Session::findOrFail($args['sessionId']);
         $memotest = MemoTest::findOrFail($args['memoTestId']);
 
         $gameSession = new GameSession([
+            'session_id' => $session->id,
             'state' => 'Started',
             'memo_test_id' => $memotest->id,
             'number_of_pairs' => $args['numberOfPairs'],
