@@ -18,11 +18,8 @@ class MemoTestResolver
      */
     public function highScore(MemoTest $memoTest, array $args, GraphQLContext $context): int
     {
-        $gameSessions = GameSession::where('session_id', $args['sessionId'])
-            ->where('memo_test_id', $memoTest->id)
-            ->get();
-
-        $highScore = $gameSessions->max('score');
+        $highScore = GameSession::where('memo_test_id', $memoTest->id)
+            ->max('score');
 
         return $highScore ? $highScore : 0;
     }

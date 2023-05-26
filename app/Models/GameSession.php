@@ -11,17 +11,11 @@ class GameSession extends Model
     use HasFactory;
 
     protected $fillable = [
-        'session_id',
         'memo_test_id',
         'retries',
         'number_of_pairs',
         'state',
     ];
-    
-    public function session(): BelongsTo
-    {
-        return $this->belongsTo(Session::class);
-    }
 
     public function memo_test(): BelongsTo
     {

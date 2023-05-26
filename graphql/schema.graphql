@@ -5,7 +5,7 @@ type MemoTest {
     id: ID!
     name: String!
     image_urls: [String!]!
-    high_score(sessionId: ID!): Int @field(resolver: "App\\GraphQL\\Resolvers\\MemoTestResolver@highScore")
+    high_score: Int @field(resolver: "App\\GraphQL\\Resolvers\\MemoTestResolver@highScore")
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -16,15 +16,7 @@ type GameSession {
     retries: Int!
     number_of_pairs: Int!
     state: GameState!
-    session: Session
     score: Int!
-    created_at: DateTime!
-    updated_at: DateTime!
-}
-
-type Session {
-    id: ID!
-    game_sessions: [GameSession!]
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -38,7 +30,6 @@ type Query {
     memoTests: [MemoTest!]! @paginate
     memoTest(id: ID! @eq): MemoTest @find
     gameSession(id: ID! @eq): GameSession @find
-    session(id: ID! @eq): Session @find
 }
 
 type Mutation {
@@ -48,12 +39,9 @@ type Mutation {
         @update
     deleteMemoTest(id: ID!): MemoTest! @delete
 
-    startGameSession(sessionId: ID!, memoTestId: ID!, numberOfPairs: Int!): GameSession @field(resolver: "App\\GraphQL\\Mutations\\GameSessionMutator@start")
+    startGameSession(memoTestId: ID!, numberOfPairs: Int!): GameSession @field(resolver: "App\\GraphQL\\Mutations\\GameSessionMutator@start")
     endGameSession(gameSessionId: ID!): GameSession @field(resolver: "App\\GraphQL\\Mutations\\GameSessionMutator@end")
     updateGameSession(id: ID!, retries: Int): GameSession! @update
 
     addTry(gameSessionId: ID! @eq): GameSession @field(resolver: "App\\GraphQL\\Mutations\\GameSessionMutator@addTry")
-
-    createSession: Session!
-        @create
 }
