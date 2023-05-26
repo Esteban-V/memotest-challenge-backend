@@ -16,7 +16,6 @@ type GameSession {
     retries: Int!
     number_of_pairs: Int!
     state: GameState!
-    progress: [String!]!
     session: Session
     score: Int!
     created_at: DateTime!

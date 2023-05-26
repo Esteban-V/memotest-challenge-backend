@@ -16,13 +16,8 @@ class GameSession extends Model
         'retries',
         'number_of_pairs',
         'state',
-        'progress',
     ];
-
-    protected $casts = [
-        'progress' => 'array',
-    ];
-
+    
     public function session(): BelongsTo
     {
         return $this->belongsTo(Session::class);
