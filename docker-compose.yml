@@ -39,7 +39,7 @@ services:
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '.:/var/www/html'
-        command: 'sh -c "php artisan migrate --force && php artisan migrate --force --env=testing && php artisan db:seed --class=MemoTestSeeder"'
+        command: 'sh -c "./wait-for.sh mariadb \"$DB_USERNAME\" \"$DB_PASSWORD\" -- php artisan migrate --force && php artisan migrate --force --env=testing && php artisan db:seed --class=MemoTestSeeder"'
         networks:
             - sail
         depends_on:
